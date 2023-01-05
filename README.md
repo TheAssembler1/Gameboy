@@ -29,3 +29,11 @@
 #### Dependencies
 1. Plog - https://github.com/SergiusTheBest/plog
 	- Logging library
+
+### Building
+- Windows Visual Studio
+        1. Create build files: cmake .. -G "Visual Studio 17 2022"
+        2. Run MSBuild: msbuild .\Gameboy.sln
+        - Things to Note
+                1. Add CMAKE to PATH
+                2. Add MSBuild to PATH
