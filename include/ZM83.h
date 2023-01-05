@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Memory.h"
+
 #include <plog/Log.h>
+#include <stdint.h>
 
 #define OPCODES_SIZE 0xFF
 #define OPCODES_CB_SIZE 0xFF
@@ -16,7 +19,7 @@ namespace Gameboy{
 			AF, BC, DE, HL, SP, PC, MS
 		};
 
-		ZM83();
+		ZM83(Memory& memory);
 		~ZM83();
 
 		void executeOpcode(uint16_t opcode, bool cb);
@@ -24,8 +27,8 @@ namespace Gameboy{
 		void writeByteRegister(SelectByteRegister selectByteRegister, uint8_t value);
 		void writeShortRegister(SelectShortRegister selectShortRegister, uint16_t value);
 
-		void readByteRegister(SelectByteRegister selectByteRegister);
-		void readShortRegister(SelectShortRegister selectShortRegister);
+		uint8_t readByteRegister(SelectByteRegister selectByteRegister);
+		uint16_t readShortRegister(SelectShortRegister selectShortRegister);
 
 	private:
 		struct Registers {
@@ -71,5 +74,7 @@ namespace Gameboy{
 
 		void (*opcodes[OPCODES_SIZE])(ZM83& zm83);
 		void (*opcodes_cb[OPCODES_CB_SIZE])(ZM83& zm83);
+
+		Memory& memory;
 	};
 }

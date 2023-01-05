@@ -1,5 +1,8 @@
 # Gameboy Emulator (written in c++)
 
+#### ToDo
+1. Mask necessary bits on f register read and writes
+
 #### Docs
 - Pandocs: https://gbdev.io/pandocs
 - Complete Technical Reference: https://github.com/Gekkio/gb-ctr
