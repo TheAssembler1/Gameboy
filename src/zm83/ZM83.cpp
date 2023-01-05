@@ -85,7 +85,7 @@ void Gameboy::ZM83::executeOpcode(uint16_t opcode, bool cb) {
 			LOG_FATAL << "Opcode does not exist: " << opcode;
 		}
 
-		(*opcodes[opcode])(*this)
+		(*opcodes[opcode])(*this);
 	}else{
 		if(opcodes_cb[opcode] == NULL){
 			LOG_FATAL << "Opcode does not exist: " << opcode;
