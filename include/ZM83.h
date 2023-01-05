@@ -30,6 +30,11 @@ namespace Gameboy{
 		uint8_t readByteRegister(SelectByteRegister selectByteRegister);
 		uint16_t readShortRegister(SelectShortRegister selectShortRegister);
 
+		// special functions for pc since it changes so often
+		void writePCRegister(uint16_t value);
+		void addToPCRegister(uint16_t value);
+
+		void addToCycles(unsigned long cycles);
 	private:
 		struct Registers {
 			// accumulator & flags
@@ -76,5 +81,7 @@ namespace Gameboy{
 		void (*opcodes_cb[OPCODES_CB_SIZE])(ZM83& zm83);
 
 		Memory& memory;
+
+		unsigned long cycles;
 	};
 }

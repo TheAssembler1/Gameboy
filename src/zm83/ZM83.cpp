@@ -1,7 +1,5 @@
 #include "ZM83.h"
 
-static void nop(Gameboy::ZM83& zm83);
-
 Gameboy::ZM83::ZM83(Gameboy::Memory& memory) : memory(memory) {
 	registers = {};
 
@@ -60,6 +58,7 @@ uint8_t Gameboy::ZM83::readByteRegister(SelectByteRegister selectByteRegister) {
 	case MB: return memory.readByteMemory(readShortRegister(HL)); break;
 	default:
 		LOG_FATAL << "Read byte register does not exist: " << selectByteRegister;
+		return 0;
 		break;
 	}
 }
@@ -72,17 +71,39 @@ uint16_t Gameboy::ZM83::readShortRegister(SelectShortRegister selectShortRegiste
 	case HL: return registers.hl; break;
 	case SP: return registers.sp; break;
 	case PC: return registers.pc; break;
-	case MS: memory.readShortMemory(readShortRegister(HL)); break;
+	case MS: return memory.readShortMemory(readShortRegister(HL)); break;
 	default:
 		LOG_FATAL << "Read short register does not exist: " << selectShortRegister;
+		return 0;
 		break;
 	}
 }
 
 void Gameboy::ZM83::executeOpcode(uint16_t opcode, bool cb) {
-	(!cb) ? (*opcodes[opcode])(*this) : (opcodes_cb[opcode])(*this);
+	if(!cb){
+		if(opcodes[opcode] == NULL){
+			LOG_FATAL << "Opcode does not exist: " << opcode;
+		}
+
+		(*opcodes[opcode])(*this)
+	}else{
+		if(opcodes_cb[opcode] == NULL){
+			LOG_FATAL << "Opcode does not exist: " << opcode;
+		}
+
+		(opcodes_cb[opcode])(*this);
+	}
 }
 
-static void nop(Gameboy::ZM83& zm83) {
+// special functions for pc since it changes so often
+void Gameboy::ZM83::writePCRegister(uint16_t value){
+	registers.pc = value;
+}
 
+void Gameboy::ZM83::addToPCRegister(uint16_t value){
+	registers.pc += value;
+}
+
+void Gameboy::ZM83::addToCycles(unsigned long value){
+	cycles += value;
 }
