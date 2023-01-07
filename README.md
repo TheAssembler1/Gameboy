@@ -29,6 +29,9 @@
 - Explanation of binary-coded decimals and the DAA instruction: https://ehaskins.com/2018-01-30%20Z80%20DAA
 - Guide to the half-carry flag: https://robdor.com/2016/08/10/gameboy-emulator-half-carry-flag
 
+#### Build
+1. Tested on another computer that builds works
+
 #### Dependencies
 1. Plog - https://github.com/SergiusTheBest/plog
         - Version: 1.1.9
