@@ -2,7 +2,6 @@
 
 #### ToDo
 1. Mask necessary bits on f register read and writes
-2. Make docs for cpus
 
 #### Docs
 - Pandocs: https://gbdev.io/pandocs
@@ -30,13 +29,14 @@
 - Explanation of binary-coded decimals and the DAA instruction: https://ehaskins.com/2018-01-30%20Z80%20DAA
 - Guide to the half-carry flag: https://robdor.com/2016/08/10/gameboy-emulator-half-carry-flag
 
-#### Build
-1. Tested on another computer that builds works
+#### Other resources
+1. ZM83 cpu tests
+        - https://github.com/c-sp/gameboy-test-roms
 
 #### Dependencies
 1. Plog - https://github.com/SergiusTheBest/plog
         - Version: 1.1.9
-	- Logging library
+	    - Logging library
 2. SDL - https://github.com/libsdl-org/SDL/
         - Version: 2.26.2
         - File IO/Graphics
