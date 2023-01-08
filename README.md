@@ -2,6 +2,7 @@
 
 #### ToDo
 1. Mask necessary bits on f register read and writes
+2. Make docs for cpus
 
 #### Docs
 - Pandocs: https://gbdev.io/pandocs
