@@ -7,8 +7,6 @@
 int main(int argc, char** arv){
 	Gameboy::initLogger();
 
-	LOG_INFO << "TEST";
-
 	Gameboy::Memory& mem = *new Gameboy::Memory();
 	Gameboy::ZM83& cpu = *new Gameboy::ZM83(mem);
 

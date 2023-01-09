@@ -23,6 +23,7 @@ namespace Gameboy{
 		~ZM83();
 
 		void executeOpcode(uint16_t opcode, bool cb);
+		void executeInterrupt(uint16_t opcode);
 
 		void writeByteRegister(SelectByteRegister selectByteRegister, uint8_t value);
 		void writeShortRegister(SelectShortRegister selectShortRegister, uint16_t value);
@@ -35,6 +36,10 @@ namespace Gameboy{
 		void addToPCRegister(uint16_t value);
 
 		void addToCycles(unsigned long cycles);
+
+		bool interruptsEnabled;
+		bool stopped;
+		bool halted;
 	private:
 		struct Registers {
 			// accumulator & flags

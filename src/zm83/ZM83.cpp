@@ -2,17 +2,42 @@
 
 namespace Gameboy {
 	//NOP | 1 | 4 | - - - - -
-	static void nop(Gameboy::ZM83 zm83) {
+	static void nop(ZM83& zm83) {
 		zm83.addToPCRegister(1);
 		zm83.addToCycles(4);
 	}
+
+	//STOP | 1 | 4 | - - - - -
+	static void stop(ZM83& zm83) {
+		zm83.addToPCRegister(1);
+		zm83.addToCycles(4);
+
+		zm83.stopped = true;
+	}
+
+	//HALT | 1 | 4 | - - - - -
+	static void halt(ZM83& zm83) {
+		zm83.addToPCRegister(1);
+		zm83.addToCycles(4);
+
+		zm83.halted = true;
+	}
 }
 
-Gameboy::ZM83::ZM83(Gameboy::Memory& memory) : memory(memory) {
+Gameboy::ZM83::ZM83(Memory& memory) : memory(memory) {
 	registers = {};
+
+	interruptsEnabled = { true };
+	stopped = { false };
+	halted = { false };
 
 	memset(opcodes, NULL, sizeof(opcodes));
 	memset(opcodes_cb, NULL, sizeof(opcodes_cb));
+
+	//NOP | 1 | 4 | - - - - -
+	opcodes[0x00] = nop;
+	//STOP | 1 | 4 | - - - - -
+	opcodes[0x10] = stop;
 
 	LOG_INFO << "Initialized ZM83";
 }
@@ -88,6 +113,8 @@ uint16_t Gameboy::ZM83::readShortRegister(SelectShortRegister selectShortRegiste
 }
 
 void Gameboy::ZM83::executeOpcode(uint16_t opcode, bool cb) {
+	if (stopped || halted) return;
+
 	if(!cb){
 		if(opcodes[opcode] == NULL){
 			LOG_FATAL << "Opcode does not exist: " << opcode;
@@ -100,6 +127,13 @@ void Gameboy::ZM83::executeOpcode(uint16_t opcode, bool cb) {
 		}
 
 		(opcodes_cb[opcode])(*this);
+	}
+}
+
+void Gameboy::ZM83::executeInterrupt(uint16_t opcode) {
+	if (interruptsEnabled) {
+		halted = false;
+		executeOpcode(false, opcode);
 	}
 }
 
