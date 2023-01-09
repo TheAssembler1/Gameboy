@@ -24,7 +24,7 @@ if(WIN32)
 	set(SDL2_LIBRARIES "${CMAKE_CURRENT_LIST_DIR}/dep/SDL2-2.26.2/lib/${CPU_ARCH}/SDL2.lib")
 	set(SDL_DLL  "${CMAKE_CURRENT_LIST_DIR}/dep/SDL2-2.26.2/lib/${CPU_ARCH}/SDL2.dll")
 
-	file(COPY ${SDL_DLL} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+	file(COPY ${SDL_DLL} DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 elseif(UNIX)
 	# set linux dependencies here
 endif()

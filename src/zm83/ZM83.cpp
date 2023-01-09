@@ -1,5 +1,13 @@
 #include "ZM83.h"
 
+namespace Gameboy {
+	//NOP | 1 | 4 | - - - - -
+	static void nop(Gameboy::ZM83 zm83) {
+		zm83.addToPCRegister(1);
+		zm83.addToCycles(4);
+	}
+}
+
 Gameboy::ZM83::ZM83(Gameboy::Memory& memory) : memory(memory) {
 	registers = {};
 
