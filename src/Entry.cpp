@@ -13,5 +13,7 @@ int main(int argc, char** arv){
 	delete &cpu;
 	delete &mem;
 
+	system("pause");
+
 	return 0;
 }

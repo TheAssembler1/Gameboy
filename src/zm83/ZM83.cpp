@@ -38,6 +38,8 @@ Gameboy::ZM83::ZM83(Memory& memory) : memory(memory) {
 	opcodes[0x00] = nop;
 	//STOP | 1 | 4 | - - - - -
 	opcodes[0x10] = stop;
+	//HALT | 1 | 4 | - - - - -
+	opcodes[0x76] = halt;
 
 	LOG_INFO << "Initialized ZM83";
 }

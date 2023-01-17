@@ -1,4 +1,2 @@
-:: run build.bat
-Build.bat | more
-:: run Run.bat
-Run.bat | more
+call Build.bat
+call Run.bat
